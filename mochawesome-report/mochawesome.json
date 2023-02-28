@@ -1,0 +1,131 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 1,
+    "pending": 0,
+    "failures": 1,
+    "start": "2023-02-01T16:08:01.626Z",
+    "end": "2023-02-01T16:08:17.779Z",
+    "duration": 16153,
+    "testsRegistered": 2,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "d9207b81-4ae3-41b0-8483-a125a4cc4ecd",
+      "title": "",
+      "fullFile": "cypress\\integration\\examples\\BDD\\ecommerce.feature",
+      "file": "cypress\\integration\\examples\\BDD\\ecommerce.feature",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1e982410-d0ea-4c66-aa48-851aef457200",
+          "title": "End To end Ecommarce Validation",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Ecommarce Product delivary",
+              "fullTitle": "End To end Ecommarce Validation Ecommarce Product delivary",
+              "timedOut": null,
+              "duration": 10416,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "var _a, _b, _c, _d, _e;\nconst { remainingSteps, testCaseStartedId } = retrieveInternalSpecProperties();\n(0, registry_1.assignRegistry)(registry);\nmessages.stack.push({\n    testCaseStarted: {\n        id: testCaseStartedId,\n        testCaseId,\n        attempt: attempt++,\n        timestamp: (0, messages_helpers_1.createTimestamp)(),\n    },\n});\nwindow.testState = {\n    gherkinDocument,\n    pickles,\n    pickle,\n};\nfor (const step of steps) {\n    if (step.hook) {\n        const hook = step.hook;\n        cy.then(() => {\n            delete window.testState.pickleStep;\n            Cypress.log({\n                name: \"step\",\n                displayName: hook.keyword,\n                message: \"\",\n            });\n            const start = (0, messages_helpers_1.createTimestamp)();\n            messages.stack.push({\n                testStepStarted: {\n                    testStepId: hook.id,\n                    testCaseStartedId,\n                    timestamp: start,\n                },\n            });\n            if (messages.enabled) {\n                cy.task(constants_1.TASK_TEST_STEP_STARTED, hook.id, { log: false });\n            }\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            registry.runHook(this, hook);\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            const end = (0, messages_helpers_1.createTimestamp)();\n            messages.stack.push({\n                testStepFinished: {\n                    testStepId: hook.id,\n                    testCaseStartedId,\n                    testStepResult: {\n                        status: Status.Passed,\n                        duration: (0, messages_helpers_1.duration)(start, end),\n                    },\n                    timestamp: end,\n                },\n            });\n            remainingSteps.shift();\n        });\n    }\n    else if (step.pickleStep) {\n        const pickleStep = step.pickleStep;\n        const text = (0, assertions_1.assertAndReturn)(pickleStep.text, \"Expected pickle step to have a text\");\n        const scenarioStep = (0, assertions_1.assertAndReturn)(astIdMap.get((0, assertions_1.assertAndReturn)((_a = pickleStep.astNodeIds) === null || _a === void 0 ? void 0 : _a[0], \"Expected to find at least one astNodeId\")), `Expected to find scenario step associated with id = ${(_b = pickleStep.astNodeIds) === null || _b === void 0 ? void 0 : _b[0]}`);\n        cy.then(() => {\n            window.testState.pickleStep = step.pickleStep;\n            Cypress.log({\n                name: \"step\",\n                displayName: (0, assertions_1.assertAndReturn)(\"keyword\" in scenarioStep && scenarioStep.keyword, \"Expected to find a keyword in the scenario step\"),\n                message: text,\n            });\n        });\n        const argument = ((_c = pickleStep.argument) === null || _c === void 0 ? void 0 : _c.dataTable)\n            ? new data_table_1.default(pickleStep.argument.dataTable)\n            : ((_e = (_d = pickleStep.argument) === null || _d === void 0 ? void 0 : _d.docString) === null || _e === void 0 ? void 0 : _e.content)\n                ? pickleStep.argument.docString.content\n                : undefined;\n        cy.then(() => {\n            internalProperties.currentStep = { pickleStep };\n            const start = (0, messages_helpers_1.createTimestamp)();\n            messages.stack.push({\n                testStepStarted: {\n                    testStepId: pickleStep.id,\n                    testCaseStartedId,\n                    timestamp: start,\n                },\n            });\n            if (messages.enabled) {\n                cy.task(constants_1.TASK_TEST_STEP_STARTED, pickleStep.id, { log: false });\n            }\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            const ensureChain = (value) => Cypress.isCy(value) ? value : cy.wrap(value, { log: false });\n            try {\n                return ensureChain(registry.runStepDefininition(this, text, argument)).then((result) => {\n                    return {\n                        start,\n                        result,\n                    };\n                });\n            }\n            catch (e) {\n                if (e instanceof registry_1.MissingDefinitionError) {\n                    throw new Error(createMissingStepDefinitionMessage(context, pickleStep, context.registry.parameterTypeRegistry));\n                }\n                else {\n                    throw e;\n                }\n            }\n        })\n            .then(({ start, result }) => {\n            var _a, _b, _c;\n            const end = (0, messages_helpers_1.createTimestamp)();\n            if (result === \"pending\") {\n                messages.stack.push({\n                    testStepFinished: {\n                        testStepId: pickleStep.id,\n                        testCaseStartedId,\n                        testStepResult: {\n                            status: Status.Pending,\n                            duration: (0, messages_helpers_1.duration)(start, end),\n                        },\n                        timestamp: end,\n                    },\n                });\n                remainingSteps.shift();\n                for (const skippedStep of remainingSteps) {\n                    const testStepId = (0, assertions_1.assertAndReturn)((_b = (_a = skippedStep.hook) === null || _a === void 0 ? void 0 : _a.id) !== null && _b !== void 0 ? _b : (_c = skippedStep.pickleStep) === null || _c === void 0 ? void 0 : _c.id, \"Expected a step to either be a hook or a pickleStep\");\n                    messages.stack.push({\n                        testStepStarted: {\n                            testStepId,\n                            testCaseStartedId,\n                            timestamp: (0, messages_helpers_1.createTimestamp)(),\n                        },\n                    });\n                    messages.stack.push({\n                        testStepFinished: {\n                            testStepId,\n                            testCaseStartedId,\n                            testStepResult: {\n                                status: Status.Skipped,\n                                duration: {\n                                    seconds: 0,\n                                    nanos: 0,\n                                },\n                            },\n                            timestamp: (0, messages_helpers_1.createTimestamp)(),\n                        },\n                    });\n                }\n                for (let i = 0, count = remainingSteps.length; i < count; i++) {\n                    remainingSteps.pop();\n                }\n                this.skip();\n            }\n            else {\n                messages.stack.push({\n                    testStepFinished: {\n                        testStepId: pickleStep.id,\n                        testCaseStartedId,\n                        testStepResult: {\n                            status: Status.Passed,\n                            duration: (0, messages_helpers_1.duration)(start, end),\n                        },\n                        timestamp: end,\n                    },\n                });\n                remainingSteps.shift();\n            }\n        });\n    }\n}",
+              "err": {},
+              "uuid": "40511763-c656-4734-8587-c7ad3715942e",
+              "parentUUID": "1e982410-d0ea-4c66-aa48-851aef457200",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Filling the form to shop",
+              "fullTitle": "End To end Ecommarce Validation Filling the form to shop",
+              "timedOut": null,
+              "duration": 368,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "var _a, _b, _c, _d, _e;\nconst { remainingSteps, testCaseStartedId } = retrieveInternalSpecProperties();\n(0, registry_1.assignRegistry)(registry);\nmessages.stack.push({\n    testCaseStarted: {\n        id: testCaseStartedId,\n        testCaseId,\n        attempt: attempt++,\n        timestamp: (0, messages_helpers_1.createTimestamp)(),\n    },\n});\nwindow.testState = {\n    gherkinDocument,\n    pickles,\n    pickle,\n};\nfor (const step of steps) {\n    if (step.hook) {\n        const hook = step.hook;\n        cy.then(() => {\n            delete window.testState.pickleStep;\n            Cypress.log({\n                name: \"step\",\n                displayName: hook.keyword,\n                message: \"\",\n            });\n            const start = (0, messages_helpers_1.createTimestamp)();\n            messages.stack.push({\n                testStepStarted: {\n                    testStepId: hook.id,\n                    testCaseStartedId,\n                    timestamp: start,\n                },\n            });\n            if (messages.enabled) {\n                cy.task(constants_1.TASK_TEST_STEP_STARTED, hook.id, { log: false });\n            }\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            registry.runHook(this, hook);\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            const end = (0, messages_helpers_1.createTimestamp)();\n            messages.stack.push({\n                testStepFinished: {\n                    testStepId: hook.id,\n                    testCaseStartedId,\n                    testStepResult: {\n                        status: Status.Passed,\n                        duration: (0, messages_helpers_1.duration)(start, end),\n                    },\n                    timestamp: end,\n                },\n            });\n            remainingSteps.shift();\n        });\n    }\n    else if (step.pickleStep) {\n        const pickleStep = step.pickleStep;\n        const text = (0, assertions_1.assertAndReturn)(pickleStep.text, \"Expected pickle step to have a text\");\n        const scenarioStep = (0, assertions_1.assertAndReturn)(astIdMap.get((0, assertions_1.assertAndReturn)((_a = pickleStep.astNodeIds) === null || _a === void 0 ? void 0 : _a[0], \"Expected to find at least one astNodeId\")), `Expected to find scenario step associated with id = ${(_b = pickleStep.astNodeIds) === null || _b === void 0 ? void 0 : _b[0]}`);\n        cy.then(() => {\n            window.testState.pickleStep = step.pickleStep;\n            Cypress.log({\n                name: \"step\",\n                displayName: (0, assertions_1.assertAndReturn)(\"keyword\" in scenarioStep && scenarioStep.keyword, \"Expected to find a keyword in the scenario step\"),\n                message: text,\n            });\n        });\n        const argument = ((_c = pickleStep.argument) === null || _c === void 0 ? void 0 : _c.dataTable)\n            ? new data_table_1.default(pickleStep.argument.dataTable)\n            : ((_e = (_d = pickleStep.argument) === null || _d === void 0 ? void 0 : _d.docString) === null || _e === void 0 ? void 0 : _e.content)\n                ? pickleStep.argument.docString.content\n                : undefined;\n        cy.then(() => {\n            internalProperties.currentStep = { pickleStep };\n            const start = (0, messages_helpers_1.createTimestamp)();\n            messages.stack.push({\n                testStepStarted: {\n                    testStepId: pickleStep.id,\n                    testCaseStartedId,\n                    timestamp: start,\n                },\n            });\n            if (messages.enabled) {\n                cy.task(constants_1.TASK_TEST_STEP_STARTED, pickleStep.id, { log: false });\n            }\n            return cy.wrap(start, { log: false });\n        })\n            .then((start) => {\n            const ensureChain = (value) => Cypress.isCy(value) ? value : cy.wrap(value, { log: false });\n            try {\n                return ensureChain(registry.runStepDefininition(this, text, argument)).then((result) => {\n                    return {\n                        start,\n                        result,\n                    };\n                });\n            }\n            catch (e) {\n                if (e instanceof registry_1.MissingDefinitionError) {\n                    throw new Error(createMissingStepDefinitionMessage(context, pickleStep, context.registry.parameterTypeRegistry));\n                }\n                else {\n                    throw e;\n                }\n            }\n        })\n            .then(({ start, result }) => {\n            var _a, _b, _c;\n            const end = (0, messages_helpers_1.createTimestamp)();\n            if (result === \"pending\") {\n                messages.stack.push({\n                    testStepFinished: {\n                        testStepId: pickleStep.id,\n                        testCaseStartedId,\n                        testStepResult: {\n                            status: Status.Pending,\n                            duration: (0, messages_helpers_1.duration)(start, end),\n                        },\n                        timestamp: end,\n                    },\n                });\n                remainingSteps.shift();\n                for (const skippedStep of remainingSteps) {\n                    const testStepId = (0, assertions_1.assertAndReturn)((_b = (_a = skippedStep.hook) === null || _a === void 0 ? void 0 : _a.id) !== null && _b !== void 0 ? _b : (_c = skippedStep.pickleStep) === null || _c === void 0 ? void 0 : _c.id, \"Expected a step to either be a hook or a pickleStep\");\n                    messages.stack.push({\n                        testStepStarted: {\n                            testStepId,\n                            testCaseStartedId,\n                            timestamp: (0, messages_helpers_1.createTimestamp)(),\n                        },\n                    });\n                    messages.stack.push({\n                        testStepFinished: {\n                            testStepId,\n                            testCaseStartedId,\n                            testStepResult: {\n                                status: Status.Skipped,\n                                duration: {\n                                    seconds: 0,\n                                    nanos: 0,\n                                },\n                            },\n                            timestamp: (0, messages_helpers_1.createTimestamp)(),\n                        },\n                    });\n                }\n                for (let i = 0, count = remainingSteps.length; i < count; i++) {\n                    remainingSteps.pop();\n                }\n                this.skip();\n            }\n            else {\n                messages.stack.push({\n                    testStepFinished: {\n                        testStepId: pickleStep.id,\n                        testCaseStartedId,\n                        testStepResult: {\n                            status: Status.Passed,\n                            duration: (0, messages_helpers_1.duration)(start, end),\n                        },\n                        timestamp: end,\n                    },\n                });\n                remainingSteps.shift();\n            }\n        });\n    }\n}",
+              "err": {
+                "message": "TypeError: path.parse is not a function\n\nBecause this error occurred during a `after all` hook we are skipping all of the remaining tests.\n\nAlthough you have test retries enabled, we do not retry tests when `before all` or `after all` hooks fail",
+                "estack": "TypeError: path.parse is not a function\n\nBecause this error occurred during a `after all` hook we are skipping all of the remaining tests.\n\nAlthough you have test retries enabled, we do not retry tests when `before all` or `after all` hooks fail\n    at Object.detectMimeType (node_modules/nodemailer/lib/mime-funcs/mime-types.js:2065:0)\n    at Object.detectMimeType (node_modules/nodemailer/lib/mime-funcs/index.js:496:0)\n    at eval (node_modules/nodemailer/lib/mail-composer/index.js:95:0)\n    at Array.map (<anonymous>)\n    at MailComposer.getAttachments (node_modules/nodemailer/lib/mail-composer/index.js:86:0)\n    at MailComposer.compile (node_modules/nodemailer/lib/mail-composer/index.js:26:0)\n    at eval (node_modules/nodemailer/lib/mailer/index.js:182:0)\n    at processPlugins (node_modules/nodemailer/lib/mailer/index.js:279:0)\n    at eval (node_modules/nodemailer/lib/mailer/index.js:287:0)\n    at Mail._convertDataImages (node_modules/nodemailer/lib/mailer/index.js:391:0)",
+                "diff": null
+              },
+              "uuid": "e7019908-8f41-4da9-8df4-87d8c63687bb",
+              "parentUUID": "1e982410-d0ea-4c66-aa48-851aef457200",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "40511763-c656-4734-8587-c7ad3715942e"
+          ],
+          "failures": [
+            "e7019908-8f41-4da9-8df4-87d8c63687bb"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 10784,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportPageTitle": "cypress/report",
+        "overwrite": true,
+        "html": true,
+        "charts": true,
+        "embeddedScreenshots": true,
+        "inlineAssets": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
